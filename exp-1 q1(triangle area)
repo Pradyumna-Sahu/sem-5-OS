@@ -1,0 +1,38 @@
+# Write a program to compute area of a triangle whose sides a,b,c are given. you need to perform a check whether a+b>c, b+c>a & c+a>b are true before finding the area
+
+echo "Enter side a:"
+read a
+echo "Enter side b:"
+read b
+echo "Enter side c:"
+read c
+
+# Check if triangle is valid using triangle inequality
+cond1=$(echo "$a + $b > $c" | bc)
+cond2=$(echo "$b + $c > $a" | bc)
+cond3=$(echo "$c + $a > $b" | bc)
+
+if [ $cond1 -eq 1 ] && [ $cond2 -eq 1 ] && [ $cond3 -eq 1 ]; then
+    # Calculate semi-perimeter
+    s=$(echo "scale=2; ($a + $b + $c) / 2" | bc)
+
+    # Heron's formula
+    area=$(echo "scale=4; sqrt($s * ($s - $a) * ($s - $b) * ($s - $c))" | bc -l)
+
+    echo "The triangle is valid."
+    echo "Area of the triangle is: $area"
+else
+    echo "The given sides do not form a valid triangle."
+fi
+
+# OUTPUT
+: '
+Enter side a:
+5
+Enter side b:
+6
+Enter side c:
+7
+The triangle is valid.
+Area of the triangle is: 14.6969
+'
