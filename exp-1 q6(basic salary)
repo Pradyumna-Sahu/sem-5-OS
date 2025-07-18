@@ -1,0 +1,51 @@
+# Write a shell Program to take the salary as input of an employee from user and calculate the TA(0.5%), DA(10%), HRA (10.5%) and gross salary. Also find the net salary after deduction of epf(12.5%) and esi(2.5%).
+
+# Take salary input
+echo "Enter the basic salary:"
+read salary
+
+# Calculate allowances
+ta=$(echo "scale=2; $salary * 0.005" | bc)
+da=$(echo "scale=2; $salary * 0.10" | bc)
+hra=$(echo "scale=2; $salary * 0.105" | bc)
+
+# Calculate gross salary
+gross=$(echo "scale=2; $salary + $ta + $da + $hra" | bc)
+
+# Calculate deductions
+epf=$(echo "scale=2; $salary * 0.125" | bc)
+esi=$(echo "scale=2; $salary * 0.025" | bc)
+total_deduction=$(echo "scale=2; $epf + $esi" | bc)
+
+# Calculate net salary
+net_salary=$(echo "scale=2; $gross - $total_deduction" | bc)
+
+# Output the results
+echo "----------------------------------------"
+echo "Basic Salary      : ₹$salary"
+echo "TA (0.5%)         : ₹$ta"
+echo "DA (10%)          : ₹$da"
+echo "HRA (10.5%)       : ₹$hra"
+echo "Gross Salary      : ₹$gross"
+echo "EPF Deduction     : ₹$epf"
+echo "ESI Deduction     : ₹$esi"
+echo "Total Deduction   : ₹$total_deduction"
+echo "Net Salary        : ₹$net_salary"
+echo "----------------------------------------"
+
+# OUTPUT
+:'
+Enter the basic salary:
+20000
+----------------------------------------
+Basic Salary      : ₹20000
+TA (0.5%)         : ₹100.00
+DA (10%)          : ₹2000.00
+HRA (10.5%)       : ₹2100.00
+Gross Salary      : ₹24200.00
+EPF Deduction     : ₹2500.00
+ESI Deduction     : ₹500.00
+Total Deduction   : ₹3000.00
+Net Salary        : ₹21200.00
+----------------------------------------
+'
