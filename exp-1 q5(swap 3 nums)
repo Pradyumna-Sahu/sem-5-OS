@@ -1,0 +1,38 @@
+# Write a shell program to swap 3 numbers without using temporary variable
+
+# Take input from user
+echo "Enter first number (a):"
+read a
+
+echo "Enter second number (b):"
+read b
+
+echo "Enter third number (c):"
+read c
+
+echo "Before swapping:"
+echo "a = $a, b = $b, c = $c"
+
+# Swapping without temporary variable
+a=$((a + b + c))
+b=$((a - (b + c)))  # b becomes original a
+c=$((a - (b + c)))  # c becomes original b
+a=$((a - (b + c)))  # a becomes original c
+
+echo "After swapping (a -> c, b -> a, c -> b):"
+echo "a = $a, b = $b, c = $c"
+
+# OUTPUT
+:'
+Enter first number (a):
+1
+Enter second number (b):
+2
+Enter third number (c):
+3
+
+Before swapping:
+a = 1, b = 2, c = 3
+After swapping (a -> c, b -> a, c -> b):
+a = 3, b = 1, c = 2
+'
