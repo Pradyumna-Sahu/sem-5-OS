@@ -1,0 +1,43 @@
+# Write a shell program to accept 2 arguments from user and perform all arithmetic operation (+,-,*,/,%). And also check if the two values are equal or not
+
+# Take input from user
+echo "Enter first number:"
+read a
+
+echo "Enter second number:"
+read b
+
+# Perform arithmetic operations
+echo "Addition: $((a + b))"
+echo "Subtraction: $((a - b))"
+echo "Multiplication: $((a * b))"
+
+# Check for divide by zero
+if [ $b -ne 0 ]; then
+    echo "Division: $((a / b))"
+    echo "Modulus: $((a % b))"
+else
+    echo "Division: Not allowed (division by zero)"
+    echo "Modulus: Not allowed (division by zero)"
+fi
+
+# Check if numbers are equal
+if [ $a -eq $b ]; then
+    echo "Both numbers are equal."
+else
+    echo "Numbers are not equal."
+fi
+
+# OUTPUT
+:'
+Enter first number:
+12
+Enter second number:
+4
+Addition: 16
+Subtraction: 8
+Multiplication: 48
+Division: 3
+Modulus: 0
+Numbers are not equal.
+'
