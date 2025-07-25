@@ -1,0 +1,35 @@
+# Write a shell program to check a number is strong number or not.
+
+echo "Enter a number:"
+read num
+
+original=$num
+sum=0
+
+while [ $num -gt 0 ]
+do
+  digit=$(( num % 10 ))
+  fact=1
+
+  for (( i=1; i<=digit; i++ ))
+  do
+    fact=$(( fact * i ))
+  done
+
+  sum=$(( sum + fact ))
+  num=$(( num / 10 ))
+done
+
+if [ $sum -eq $original ]
+then
+  echo "$original is a Strong number."
+else
+  echo "$original is not a Strong number."
+fi
+
+# OUTPUT
+: '
+Enter a number:
+145
+145 is a Strong number.
+'
