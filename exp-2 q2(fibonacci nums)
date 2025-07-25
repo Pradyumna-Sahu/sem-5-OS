@@ -1,0 +1,21 @@
+# Write a shell program to find first 10 Fibonacci numbers
+
+a=0
+b=1
+
+echo "First 10 Fibonacci numbers are:"
+for (( i=0; i<10; i++ ))
+do
+  echo -n "$a "
+  fn=$((a + b))
+  a=$b
+  b=$fn
+done
+
+echo
+
+# OUTPUT
+: '
+First 10 Fibonacci numbers are:
+0 1 1 2 3 5 8 13 21 34
+'
