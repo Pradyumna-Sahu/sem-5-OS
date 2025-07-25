@@ -1,0 +1,23 @@
+# Write a shell program to find sum of digits of a number.
+
+echo "Enter a number:"
+read num
+
+sum=0
+n=$num
+
+while [ $n -gt 0 ]
+do
+  digit=$(( n % 10 ))
+  sum=$(( sum + digit ))
+  n=$(( n / 10 ))
+done
+
+echo "Sum of digits of $num is: $sum"
+
+# OUTPUT
+: '
+Enter a number:
+1234
+Sum of digits of 1234 is: 10
+'
