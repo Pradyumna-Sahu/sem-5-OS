@@ -1,0 +1,28 @@
+# Write a shell program to check a number is perfect number or not.
+
+echo "Enter a number:"
+read num
+
+sum=0
+
+for (( i=1; i<num; i++ ))
+do
+  if (( num % i == 0 ))
+  then
+    sum=$(( sum + i ))
+  fi
+done
+
+if [ $sum -eq $num ]
+then
+  echo "$num is a Perfect number."
+else
+  echo "$num is not a Perfect number."
+fi
+
+# OUTPUT
+: '
+Enter a number:
+28
+28 is a Perfect number.
+'
