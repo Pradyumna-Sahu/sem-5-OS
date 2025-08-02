@@ -1,0 +1,48 @@
+# Write a shell program sorting of array elements in ascending order.
+
+# Read the number of elements
+echo "Enter the number of elements:"
+read n
+
+# Read array elements
+echo "Enter the array elements:"
+for (( i=0; i<n; i++ ))
+do
+    read arr[$i]
+done
+
+# Bubble Sort logic
+for (( i=0; i<n-1; i++ ))
+do
+    for (( j=0; j<n-i-1; j++ ))
+    do
+        if [ ${arr[$j]} -gt ${arr[$((j+1))]} ]
+        then
+            # swap
+            temp=${arr[$j]}
+            arr[$j]=${arr[$((j+1))]}
+            arr[$((j+1))]=$temp
+        fi
+    done
+done
+
+# Print sorted array
+echo "Sorted array in ascending order:"
+for (( i=0; i<n; i++ ))
+do
+    echo -n "${arr[$i]} "
+done
+
+# OUTPUT 
+: '
+Enter the number of elements:
+5
+Enter the array elements:
+12
+4
+56
+1
+8
+Sorted array in ascending order:
+1 4 8 12 56
+'
