@@ -1,0 +1,22 @@
+# Write a shell program to count no of occurrence of vowel characters in a string.
+
+read -p "Enter a string: " str
+
+count=0
+len=${#str}
+
+for (( i=0; i<len; i++ ))
+do
+    ch=${str:$i:1}
+    if [[ "$ch" == [aeiouAEIOU] ]]; then
+        ((count++))
+    fi
+done
+
+echo "Number of vowels in '$str': $count"
+
+# OUTPUT 
+: '
+Enter a string: Apple
+Number of vowels in 'Apple': 2
+'
