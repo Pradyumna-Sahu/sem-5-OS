@@ -1,8 +1,23 @@
 # Write a shell program to count number of occurrence of a single character in a string.
 
+read -p "Enter a string: " str
+read -p "Enter a character to search: " ch
 
+count=0
+len=${#str}
+
+for (( i=0; i<len; i++ ))
+do
+    if [ "${str:$i:1}" = "$ch" ]; then
+        count=$((count + 1))
+    fi
+done
+
+echo "The character '$ch' occurred $count time(s) in '$str'."
 
 # OUTPUT 
 : '
-
+Enter a string: banana
+Enter a character to search: a
+The character 'a' occurred 3 time(s) in 'banana'.
 '
