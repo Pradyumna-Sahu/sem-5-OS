@@ -1,0 +1,25 @@
+# Write a shell program to check a string is palindrome or not
+
+echo "Enter a string:"
+read str
+
+rev=""
+len=${#str}
+
+for (( i=$len-1; i>=0; i-- ))
+do
+    rev="$rev${str:$i:1}"
+done
+
+if [ "$str" = "$rev" ]; then
+    echo "The string '$str' is a palindrome."
+else
+    echo "The string '$str' is not a palindrome."
+fi
+
+# OUTPUT 
+: '
+Enter a string:
+level
+The string 'level' is a palindrome.
+'
