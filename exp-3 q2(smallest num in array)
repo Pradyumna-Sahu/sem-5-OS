@@ -1,0 +1,24 @@
+# Write a shell program to find smallest no in an unsorted array.
+
+echo "Enter array elements separated by space:"
+read -a arr
+
+# Initialize min with the first element
+min=${arr[0]}
+
+# Loop through array to find smallest number
+for num in "${arr[@]}"
+do
+    if [ "$num" -lt "$min" ]; then
+        min=$num
+    fi
+done
+
+echo "Smallest number is: $min"
+
+# OUTPUT 
+: '
+Enter array elements separated by space:
+8 3 12 5 1 9
+Smallest number is: 1
+'
