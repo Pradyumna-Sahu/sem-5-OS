@@ -1,0 +1,36 @@
+: '
+Write a function to print Armstrong numbers between 1 to 2000.
+'
+
+function is_armstrong() {
+    num=$1
+    sum=0
+    temp=$num
+    while [ $temp -gt 0 ]
+    do
+        digit=$((temp % 10))
+        sum=$((sum + digit*digit*digit))
+        temp=$((temp / 10))
+    done
+    if [ $sum -eq $num ]
+    then
+        echo $num
+    fi
+}
+
+echo "Armstrong numbers between 1 and 2000:"
+for ((i=1; i<=2000; i++))
+do
+    is_armstrong $i
+done
+
+# OUTPUT 
+: '
+Armstrong numbers between 1 and 2000:
+1
+153
+370
+371
+407
+...
+'
