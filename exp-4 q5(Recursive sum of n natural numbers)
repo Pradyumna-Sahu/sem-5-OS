@@ -1,0 +1,21 @@
+: '
+Write a recursive function to find sum of n natural numbers.
+'
+
+function sum_n() {
+    if [ $1 -le 0 ]
+    then
+        echo 0
+    else
+        temp=$(( $1 - 1 ))
+        prev=$(sum_n $temp)
+        echo $(( $1 + prev ))
+    fi
+}
+
+echo "Sum of first 5 natural numbers = $(sum_n 5)"
+
+# OUTPUT 
+: '
+Sum of first 5 natural numbers = 15
+'
