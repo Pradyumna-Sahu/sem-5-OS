@@ -1,0 +1,23 @@
+: '
+Write a function sum_of_digs() that takes a number as input and 
+finds sum of each digits of the number.
+'
+
+function sum_of_digs() {
+    num=$1
+    sum=0
+    while [ $num -gt 0 ]
+    do
+        digit=$((num % 10))
+        sum=$((sum + digit))
+        num=$((num / 10))
+    done
+    echo "Sum of digits = $sum"
+}
+
+sum_of_digs 1234
+
+# OUTPUT 
+: '
+Sum of digits = 10
+'
