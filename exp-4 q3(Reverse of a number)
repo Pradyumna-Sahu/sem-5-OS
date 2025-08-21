@@ -1,0 +1,23 @@
+: '
+Write a function find_rev() that takes a number as input and 
+finds the reverse of the inputted number.
+'
+
+function find_rev() {
+    num=$1
+    rev=0
+    while [ $num -gt 0 ]
+    do
+        digit=$((num % 10))
+        rev=$((rev * 10 + digit))
+        num=$((num / 10))
+    done
+    echo "Reverse = $rev"
+}
+
+find_rev 1234
+
+# OUTPUT 
+: '
+Reverse = 4321
+'
