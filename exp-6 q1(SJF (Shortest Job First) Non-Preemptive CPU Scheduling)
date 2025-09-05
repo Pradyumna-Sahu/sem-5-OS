@@ -1,0 +1,148 @@
+/*
+Write a program that simulates the SJF Non Pre emptive CPU Scheduling and 
+display the process turn around time(TAT) and average TAT, process waiting time(WT), average WT.
+Process		Arrival TIme		Burst TIme
+P1	2 	2
+P2	0 	1
+P3	3 	4
+P4	3 	2
+P5	4 	4
+*/
+
+#include <stdio.h>
+
+struct process {
+    int pid;
+    int at; // Arrival Time
+    int bt; // Burst Time
+    int ct; // Completion Time
+    int tat; // Turnaround Time
+    int wt; // Waiting Time
+    int rt; // Response Time
+    int done; // flag to check completion
+};
+
+int main() {
+    int n, i, j, t = 0, completed = 0;
+    float totalTAT = 0, totalWT = 0, totalRT = 0;
+
+    printf("Enter the number of process :");
+    scanf("%d", &n);
+
+    struct process p[n];
+
+    for(i = 0; i < n; i++) {
+        p[i].pid = i+1;
+        printf("\nEnter The Arrival Time of process %d: ", i+1);
+        scanf("%d", &p[i].at);
+        printf("Enter The Burst Time of process %d: ", i+1);
+        scanf("%d", &p[i].bt);
+        p[i].done = 0;
+    }
+
+    printf("\nInputted Table is:-\n");
+    printf("P_Id\tAT\tBT\n");
+    for(i = 0; i < n; i++) {
+        printf("p[%d]\t%d\t%d\n", p[i].pid, p[i].at, p[i].bt);
+    }
+
+    // Sort by Arrival Time, then by Burst Time
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(p[i].at > p[j].at || (p[i].at == p[j].at && p[i].bt > p[j].bt)) {
+                struct process temp = p[i];
+                p[i] = p[j];
+                p[j] = temp;
+            }
+        }
+    }
+
+    printf("\nAfter Sorting the process according to arrival time and if same AT then BT:\n");
+    printf("p\tat\tbt\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\n", p[i].pid, p[i].at, p[i].bt);
+    }
+
+    t = p[0].at; // start from first process arrival
+    while(completed < n) {
+        int idx = -1, minBT = 9999;
+
+        for(i = 0; i < n; i++) {
+            if(p[i].at <= t && !p[i].done) {
+                if(p[i].bt < minBT) {
+                    minBT = p[i].bt;
+                    idx = i;
+                }
+            }
+        }
+
+        if(idx == -1) {
+            t++;
+        } else {
+            p[idx].ct = t + p[idx].bt;
+            p[idx].tat = p[idx].ct - p[idx].at;
+            p[idx].wt = p[idx].tat - p[idx].bt;
+            p[idx].rt = p[idx].wt; // since non-preemptive
+            p[idx].done = 1;
+
+            totalTAT += p[idx].tat;
+            totalWT += p[idx].wt;
+            totalRT += p[idx].rt;
+
+            t = p[idx].ct;
+            completed++;
+        }
+    }
+
+    printf("\nAfter Calculation of CT, TAT, WT & RT the updated Table is :-\n");
+    printf("P_Id\tAT\tBT\tCT\tTAT\tWT\tRT\n");
+    for(i = 0; i < n; i++) {
+        printf("P[%d]\t%d\t%d\t%d\t%d\t%d\t%d\n",
+            p[i].pid, p[i].at, p[i].bt, p[i].ct, p[i].tat, p[i].wt, p[i].rt);
+    }
+
+    printf("The Avg TAT is:%.2f ", totalTAT/n);
+    printf("The Avg WT Is :%.2f ", totalWT/n);
+    printf("The Avg RT Is :%.2f\n", totalRT/n);
+
+    return 0;
+}
+
+# OUTPUT
+/*
+Enter the number of process :5
+Enter The Arrival Time of process 1: 2
+Enter The Burst Time of process 1: 2
+Enter The Arrival Time of process 2: 0
+Enter The Burst Time of process 2: 1
+Enter The Arrival Time of process 3: 3
+Enter The Burst Time of process 3: 4
+Enter The Arrival Time of process 4: 3
+Enter The Burst Time of process 4: 2
+Enter The Arrival Time of process 5: 4
+Enter The Burst Time of process 5: 4
+Inputted Table is:-
+P_Id	AT	BT
+p[1]	2	2
+p[2]	0	1
+p[3]	3	4
+p[4]	3	2
+p[5]	4	4
+
+After Sorting the process according to arrival time and if same AT then BT:
+p	at	bt
+2	0	1
+1	2	2
+4	3	2
+3	3	4
+5	4	4
+
+After Calculation of CT, TAT, WT & RT the updated Table is :-
+P_Id	AT	BT	CT	TAT	WT	RT
+P[2]	0	1	1	1	0	0
+P[1]	2	2	4	2	0	0
+P[4]	3	2	6	3	1	1
+P[3]	3	4	10	7	3	3
+P[5]	4	4	14	10	6	6
+The Avg TAT is:4.60 The Avg WT Is :2.00 The Avg RT Is :2.00
+*/
