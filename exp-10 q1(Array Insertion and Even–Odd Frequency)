@@ -1,0 +1,90 @@
+'''
+WAP to create an Array to store a maximum of 100 Integers all should be >0.
+3 Input integers and store them In the Aray untill the user Inputs a ZERO(0), 
+4 Then ask the user to Input another Integer and the position, Insert this Integer at the given position by shifting the elements .
+Finally:
+> Print the array afler Interlon ol new element.
+> Print the frequency of Even numbers 
+> Print the frequency of Odd numbers
+''' 
+
+#include <stdio.h>
+
+int main() {
+    int arr[100];
+    int n = 0, num, pos, newNum;
+    int evenCount = 0, oddCount = 0;
+
+    printf("Enter positive integers (enter 0 to stop):\n");
+
+    // Step 1: Input integers until user enters 0
+    while (1) {
+        scanf("%d", &num);
+        if (num == 0) break;
+        if (num > 0) {
+            arr[n] = num;
+            n++;
+        } else {
+            printf("Only positive integers are allowed.\n");
+        }
+
+        if (n == 100) {
+            printf("Array is full!\n");
+            break;
+        }
+    }
+
+    // Step 2: Insert new number at a given position
+    printf("Enter the number to insert: ");
+    scanf("%d", &newNum);
+    printf("Enter the position (1 to %d): ", n + 1);
+    scanf("%d", &pos);
+
+    // Validate position
+    if (pos < 1 || pos > n + 1) {
+        printf("Invalid position!\n");
+        return 0;
+    }
+
+    // Shift elements to the right
+    for (int i = n; i >= pos; i--) {
+        arr[i] = arr[i - 1];
+    }
+
+    // Insert the new number
+    arr[pos - 1] = newNum;
+    n++;
+
+    // Step 3: Print array after insertion
+    printf("\nArray after insertion:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    // Step 4: Count even and odd numbers
+    for (int i = 0; i < n; i++) {
+        if (arr[i] % 2 == 0)
+            evenCount++;
+        else
+            oddCount++;
+    }
+
+    printf("\n\nFrequency of Even numbers: %d", evenCount);
+    printf("\nFrequency of Odd numbers: %d\n", oddCount);
+
+    return 0;
+}
+
+# OUTPUT 
+'''
+Enter positive integers (enter 0 to stop):
+5 8 7 9 0
+Enter the number to insert: 10
+Enter the position (1 to 5): 3
+
+Array after insertion:
+5 8 10 7 9 
+
+Frequency of Even numbers: 2
+Frequency of Odd numbers: 3
+'''
