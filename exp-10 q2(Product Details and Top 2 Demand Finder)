@@ -1,0 +1,106 @@
+'''
+Create an array In such a way so that II can be used to store the following details of a product :
+PID (Int) Product ID
+Sqly (Int) Sales Quantity
+Pnm (char(20)) Product Name
+Then WAP to Input certain product details Into the array and 
+Finally display the details of two most demanded products 
+[ Do not use sorting ]
+''' 
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100   // maximum number of products
+
+// Structure to store product details
+struct Product {
+    int PID;
+    int Sqly;         // Sales Quantity
+    char Pnm[20];     // Product Name
+};
+
+int main() {
+    struct Product prod[MAX];
+    int n;
+
+    printf("Enter the number of products: ");
+    scanf("%d", &n);
+
+    // Input product details
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter details of product %d:\n", i + 1);
+        printf("Product ID: ");
+        scanf("%d", &prod[i].PID);
+        printf("Sales Quantity: ");
+        scanf("%d", &prod[i].Sqly);
+        printf("Product Name: ");
+        scanf(" %[^\n]", prod[i].Pnm);  // read string with spaces
+    }
+
+    // Find top 2 most demanded products (without sorting)
+    int firstMax = -1, secondMax = -1;
+    int firstIndex = -1, secondIndex = -1;
+
+    for (int i = 0; i < n; i++) {
+        if (prod[i].Sqly > firstMax) {
+            // Update both first and second
+            secondMax = firstMax;
+            secondIndex = firstIndex;
+            firstMax = prod[i].Sqly;
+            firstIndex = i;
+        } 
+        else if (prod[i].Sqly > secondMax && prod[i].Sqly < firstMax) {
+            secondMax = prod[i].Sqly;
+            secondIndex = i;
+        }
+    }
+
+    // Display top 2 demanded products
+    printf("\n--- Two Most Demanded Products ---\n");
+    if (firstIndex != -1) {
+        printf("\n1) %s\n   Product ID: %d\n   Sales Quantity: %d\n", 
+                prod[firstIndex].Pnm, prod[firstIndex].PID, prod[firstIndex].Sqly);
+    }
+    if (secondIndex != -1) {
+        printf("\n2) %s\n   Product ID: %d\n   Sales Quantity: %d\n", 
+                prod[secondIndex].Pnm, prod[secondIndex].PID, prod[secondIndex].Sqly);
+    }
+
+    return 0;
+}
+
+# OUTPUT 
+'''
+Enter the number of products: 4
+
+Enter details of product 1:
+Product ID: 101
+Sales Quantity: 50
+Product Name: Soap
+
+Enter details of product 2:
+Product ID: 102
+Sales Quantity: 90
+Product Name: Shampoo
+
+Enter details of product 3:
+Product ID: 103
+Sales Quantity: 75
+Product Name: Toothpaste
+
+Enter details of product 4:
+Product ID: 104
+Sales Quantity: 40
+Product Name: Brush
+
+--- Two Most Demanded Products ---
+
+1) Shampoo
+   Product ID: 102
+   Sales Quantity: 90
+
+2) Toothpaste
+   Product ID: 103
+   Sales Quantity: 75
+'''
