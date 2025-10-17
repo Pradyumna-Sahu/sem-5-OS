@@ -1,4 +1,4 @@
-: '
+'''
 Write a program that simulates the Round Robin CPU Scheduling algorithm and display the process 
 turn around time(TAT), average TAT, waiting time(WT), average WT, Quantum Time = 2ms.
 Process  Burst TIme  Arrival Time
@@ -8,7 +8,7 @@ P3  3  2
 P4  1  3
 P5  5  4 
 P6  4  6
-'
+'''
 
 #include <stdio.h>
 
@@ -87,7 +87,7 @@ void main() {
 
 
 # OUTPUT 
-: '
+'''
 Enter Arrival Time for process 1: 0
 Enter Burst Time for process 1: 5
 Enter Arrival Time for process 2: 1
@@ -113,4 +113,4 @@ P6    6    4    20    14    10    3
 Average TAT: 15.83
 Average WT : 11.83
 Average RT : 2.00
-'
+'''
