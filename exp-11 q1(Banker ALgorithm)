@@ -1,0 +1,135 @@
+'''
+Write a Program to implement Bankers Algorithm using C Program.
+Process ID		Allocation		Max Need		Available		Remaining Need
+		           A   B   C	  A   B   C	  A   B   C	   A   B   C
+    P1		     1   1   2	  4   3   3	  2   1   0
+    P2		     2   1   2	  3   2   2
+    P3	       4   0   1	  9   0   2
+    P4		     0   2   0	  7   5   3	
+    P5		     1   1   2	  1   1   2
+
+Calculate the content of need matrix & Display the Process Sequence.
+''' 
+
+#include <stdio.h>
+
+int main() {
+    int n, m, i, j, k;
+    printf("Enter total no of processes: ");
+    scanf("%d", &n);
+    printf("Enter total no of resources: ");
+    scanf("%d", &m);
+
+    // Declare matrices and arrays
+    int alloc[n][m], max[n][m], avail[m], need[n][m];
+    int finish[n], safeSeq[n];
+
+    // Step 1: Input Allocation matrix
+    printf("Enter Allocation for each process:\n");
+    for(i = 0; i < n; i++) {
+        printf("P%d: ", i);
+        for(j = 0; j < m; j++)
+            scanf("%d", &alloc[i][j]);
+    }
+
+    // Step 2: Input Maximum Need matrix
+    printf("Enter Maximum Need for each process:\n");
+    for(i = 0; i < n; i++) {
+        printf("P%d: ", i);
+        for(j = 0; j < m; j++)
+            scanf("%d", &max[i][j]);
+    }
+
+    // Step 3: Input Available resources
+    printf("Enter Present Available Resources: ");
+    for(i = 0; i < m; i++)
+        scanf("%d", &avail[i]);
+
+    // Step 4: Calculate Need matrix
+    for(i = 0; i < n; i++)
+        for(j = 0; j < m; j++)
+            need[i][j] = max[i][j] - alloc[i][j];
+
+    // Display Need matrix
+    printf("\nNeed Matrix:\n");
+    for(i = 0; i < n; i++) {
+        printf("P%d: ", i);
+        for(j = 0; j < m; j++)
+            printf("%d ", need[i][j]);
+        printf("\n");
+    }
+
+    // Step 5: Initialize Finish array
+    for(i = 0; i < n; i++)
+        finish[i] = 0;
+
+    int count = 0;
+    while(count < n) {
+        int found = 0;
+        for(i = 0; i < n; i++) {
+            if(finish[i] == 0) { // if process not yet completed
+                int flag = 0;
+                // Check if Need <= Available
+                for(j = 0; j < m; j++) {
+                    if(need[i][j] > avail[j]) {
+                        flag = 1;
+                        break;
+                    }
+                }
+
+                // If all needs can be satisfied
+                if(flag == 0) {
+                    for(k = 0; k < m; k++)
+                        avail[k] += alloc[i][k]; // release resources
+                    safeSeq[count++] = i;
+                    finish[i] = 1;
+                    found = 1;
+                }
+            }
+        }
+
+        // If no process can be executed safely
+        if(found == 0) {
+            printf("\nSystem is not in safe state.\n");
+            return 0;
+        }
+    }
+
+    // Step 6: Display Safe Sequence
+    printf("\nProcess Sequence in order:- ");
+    for(i = 0; i < n; i++) {
+        printf("P%d", safeSeq[i]);
+        if(i != n-1) printf(" -> ");
+    }
+    printf("\n");
+
+    return 0;
+}
+
+# OUTPUT 
+'''
+Enter total no of processes: 5
+Enter total no of resources: 3
+Enter Allocation for each process:
+P0: 1 1 2
+P1: 2 1 2
+P2: 4 0 1
+P3: 0 2 0
+P4: 1 1 2
+Enter Maximum Need for each process:
+P0: 4 3 3
+P1: 3 2 2
+P2: 9 0 2
+P3: 7 5 3
+P4: 1 1 2
+Enter Present Available Resources: 2 1 0
+
+Need Matrix:
+P0: 3 2 1 
+P1: 1 1 0 
+P2: 5 0 1 
+P3: 7 3 3 
+P4: 0 0 0 
+
+Process Sequence in order:- P1 -> P4 -> P0 -> P2 -> P3
+'''
